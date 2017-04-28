@@ -1,9 +1,12 @@
 %{
+#include <stdio.h>
+#include <ctype.h>
+#include <math.h>
 #define YYSTYPE double  /* Stack data type */
 %}
 %token  NUMBER
 %left   '+' '-' /* Left associative, lower precedence than below*/
-%left   '*' '/'
+%left   '*' '/' '%'
 %left   UNARYMINUS UNARYPLUS
 %%
     /* Start of the Grammar */
@@ -19,13 +22,12 @@ expr:           NUMBER              { $$ = $1; }
             |   expr '-' expr       { $$ = $1 - $3; }
             |   expr '*' expr       { $$ = $1 * $3; }
             |   expr '/' expr       { $$ = $1 / $3; }
+            |   expr '%' expr       { $$ = fmod($1,$3); }
             |   '(' expr ')'        { $$ = $2; }
             ;
 %% 
     /* End of the Grammar */
 
-#include <stdio.h>
-#include <ctype.h>
 
 char    *progname;
 int     lineno = 1;
