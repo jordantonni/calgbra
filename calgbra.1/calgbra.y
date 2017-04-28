@@ -1,7 +1,4 @@
 %{
-#include <stdio.h>
-#include <ctype.h>
-#include <math.h>
 #define YYSTYPE double  /* Stack data type */
 %}
 %token  NUMBER
@@ -28,6 +25,9 @@ expr:           NUMBER              { $$ = $1; }
 %% 
     /* End of the Grammar */
 
+#include <stdio.h>
+#include <ctype.h>
+#include <math.h>
 
 char    *progname;
 int     lineno = 1;
